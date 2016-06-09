@@ -24,18 +24,20 @@ public class IndexController {
 
     private DataDao dataDao;
 
-    @RequestMapping(method = GET) public String get(Model model, @RequestParam(defaultValue = "48") int hours) {
+    @RequestMapping(method = GET) public String get(Model model, @RequestParam(defaultValue = "24") int hours) {
         Collection<String> sensorList = dataDao.getSensorList();
 
         Map<String, String> latestDataMap = new HashMap<>(sensorList.size());
         Map<String, List<DataRow>> dataMap = new HashMap<>(sensorList.size());
         Map<String, String> sensorNames = new HashMap<>(sensorList.size());
 
-        sensorList.forEach(uuid -> latestDataMap.put(uuid, dataDao.getLatestData(uuid).getValue()));
-        sensorList.forEach(uuid -> dataMap.put(uuid, dataDao.getDataFromLastHours(uuid, hours)));
-        sensorList.forEach(uuid -> sensorNames.put(uuid, dataDao.getSensorName(uuid).orElse(uuid)));
+        sensorList.forEach(uuid -> {
+            latestDataMap.put(uuid, dataDao.getLatestData(uuid).getValue());
+            dataMap.put(uuid, dataDao.getDataFromLastHours(uuid, hours));
+            sensorNames.put(uuid, dataDao.getSensorName(uuid).orElse(uuid));
+        });
 
-        model.addAttribute("interval",getInterval(hours));
+        model.addAttribute("interval", getInterval(hours));
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("latestDataMap", latestDataMap);
         model.addAttribute("sensorNames", sensorNames);
