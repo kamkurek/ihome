@@ -1,7 +1,9 @@
 package org.kamilkurek.ihome.mvc.controllers;
 
-import org.kamilkurek.ihome.DataDao;
-import org.kamilkurek.ihome.DataRow;
+import org.kamilkurek.ihome.db.DataDao;
+import org.kamilkurek.ihome.db.DataRow;
+import org.kamilkurek.ihome.db.WidgetParametersDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/")
 public class IndexController {
 
-    private DataDao dataDao;
+    private final DataDao dataDao;
+    private final WidgetParametersDao widgetParametersDao;
+
+    @Autowired
+    public IndexController(DataDao dataDao, WidgetParametersDao widgetParametersDao) {
+        this.dataDao = dataDao;
+        this.widgetParametersDao = widgetParametersDao;
+    }
 
     @RequestMapping(method = GET) public String get(Model model, @RequestParam(defaultValue = "24") int hours) {
         Collection<String> sensorList = dataDao.getSensorList();
@@ -41,6 +50,7 @@ public class IndexController {
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("latestDataMap", latestDataMap);
         model.addAttribute("sensorNames", sensorNames);
+        model.addAttribute("widgetParameters", widgetParametersDao.getWidgetParams("1"));
 
         return "index";
     }
@@ -53,8 +63,4 @@ public class IndexController {
         return hours+(hours>1?" hours":" hour");
     }
 
-    @Required
-    public void setDataDao(DataDao dataDao) {
-        this.dataDao = dataDao;
-    }
 }

@@ -1,7 +1,8 @@
 package org.kamilkurek.ihome.mvc.controllers;
 
-import org.kamilkurek.ihome.DataDao;
+import org.kamilkurek.ihome.db.DataDao;
 import org.kamilkurek.ihome.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,12 @@ import java.util.Optional;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
-    private DataDao dataDao;
+    private final DataDao dataDao;
+
+    @Autowired
+    public RestController(DataDao dataDao) {
+        this.dataDao = dataDao;
+    }
 
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     public void post(
@@ -26,11 +32,6 @@ public class RestController {
         String dateString = date.orElse(Utils.getCurrentDateString());
         System.out.println(dateString+" "+value);
         dataDao.create(sensorId, dateString, value);
-    }
-
-    @Required
-    public void setDataDao(DataDao dataDao) {
-        this.dataDao = dataDao;
     }
 
 }

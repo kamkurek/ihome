@@ -1,9 +1,11 @@
-package org.kamilkurek.ihome;
+package org.kamilkurek.ihome.db;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -16,10 +18,12 @@ import java.util.Optional;
  * Created by kamil on 2016-06-05.
  */
 
+@Repository
 public class DataDao {
 
     private final JdbcTemplate jdbcTemplateObject;
 
+    @Autowired
     public DataDao(DataSource dataSource) {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }

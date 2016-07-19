@@ -1,4 +1,4 @@
-package org.kamilkurek.ihome;
+package org.kamilkurek.ihome.db;
 
 /**
  * Created by kamil on 2016-06-06.

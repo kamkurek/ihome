@@ -1,6 +1,9 @@
 <script type="text/javascript">
+    CanvasJS.addColorSet('colorSet1',["${widgetParameters['colors']!'#000000'}"]);
+
     <#list dataMap?keys as uuid>
     var chart${uuid} = new CanvasJS.Chart("chartContainer${uuid}",{
+        colorSet:  "colorSet1",
         title:{
             fontSize: 18
         },
@@ -16,6 +19,7 @@
             labelAngle: -50
         },
         axisY: {
+
         },
         data: [
             {
@@ -26,12 +30,13 @@
         ]
     });
 
-        <#list dataMap[uuid] as row>
+    <#list dataMap[uuid] as row>
         chart${uuid}.options.data[0].dataPoints.push({x: new Date('${row.getDate()}+02:00'), y: parseFloat(${row.getValue()})});
-        </#list>
+    </#list>
 
-        <#if dataMap[uuid]?size!=0>
+    <#if dataMap[uuid]?size!=0>
         chart${uuid}.render();
-        </#if>
+    </#if>
+
     </#list>
 </script>
