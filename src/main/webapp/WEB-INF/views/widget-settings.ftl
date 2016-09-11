@@ -11,19 +11,19 @@
 <nav class="navbar navbar-inverse" style="border-radius:0px;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="">IHome</a>
+            <a class="navbar-brand" href="<@spring.url '/'/>">IHome</a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <form role="form" method="post">
+    <form role="form" method="post" action="/ihome/widget-settings">
         <#list parameters?keys as parameter>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="${parameter}">${parameter}</label>
-                        <input type="text" class="form-control" id="${parameter}" value="${parameters[parameter]}">
+                        <input type="text" class="form-control" id="${parameter}" value="${parameters[parameter]}" name="${parameter}">
                     </div>
                 </div>
             </div>

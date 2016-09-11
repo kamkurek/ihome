@@ -14,6 +14,9 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="">IHome</a>
         </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="<@spring.url '/settings'/>">Settings</a>
+        </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">${interval}<span class="caret"></span></a>

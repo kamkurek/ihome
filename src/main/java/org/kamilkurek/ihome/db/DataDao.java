@@ -59,7 +59,7 @@ public class DataDao {
     }
 
     public Optional<String> getSensorName(String sensorId) {
-        String sql = "SELECT name FROM sensor_name WHERE id = ?";
+        String sql = "SELECT name FROM sensors WHERE id = ?";
 
         return jdbcTemplateObject.query(sql, new SingleColumnRowMapper(String.class), sensorId).stream().findFirst();
     }

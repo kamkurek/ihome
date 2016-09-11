@@ -22,7 +22,7 @@ public class WidgetParametersDao {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
-    public Map<String, String> getWidgetParams(String widgetId) {
+    public Map<String, String> getWidgetParams(Long widgetId) {
         Map<String, String> map = new HashMap<>();
         String sql = "SELECT parameter, value " +
                 "FROM widget_params " +
@@ -32,4 +32,15 @@ public class WidgetParametersDao {
         return map;
     }
 
+    public void setWidgetParam(String widgetId, String param, String value) {
+        String sql = "DELETE FROM widget_params " +
+                "WHERE widget_id = ? " +
+                "AND parameter = ?";
+
+        jdbcTemplateObject.update(sql, widgetId, param);
+
+        sql = "INSERT INTO widget_params (widget_id, parameter, value) VALUES (?, ?, ?)";
+
+        jdbcTemplateObject.update(sql, widgetId, param, value);
+    }
 }

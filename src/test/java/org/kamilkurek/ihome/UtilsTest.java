@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+import static org.kamilkurek.ihome.Utils.getDateString;
 import static org.testng.Assert.assertEquals;
 
 
@@ -31,7 +32,7 @@ public class UtilsTest {
 
     @Test(dataProvider = "getDateStringDataProvider")
     public void testGetDateString(LocalDateTime localDateTime, String expected) throws Exception {
-        String dateString = Utils.getDateString(localDateTime);
+        String dateString = getDateString(localDateTime);
 
         assertEquals(dateString, expected);
     }
