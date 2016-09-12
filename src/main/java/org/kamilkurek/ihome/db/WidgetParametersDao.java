@@ -22,7 +22,7 @@ public class WidgetParametersDao {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
-    public Map<String, String> getWidgetParams(Long widgetId) {
+    public Map<String, String> getWidgetParams(long widgetId) {
         Map<String, String> map = new HashMap<>();
         String sql = "SELECT parameter, value " +
                 "FROM widget_params " +

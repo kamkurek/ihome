@@ -50,7 +50,7 @@ public class IndexController {
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("latestDataMap", latestDataMap);
         model.addAttribute("sensorNames", sensorNames);
-        model.addAttribute("widgetParameters", widgetParametersDao.getWidgetParams("1"));
+        model.addAttribute("widgetParameters", widgetParametersDao.getWidgetParams(1));
 
         return "index";
     }
