@@ -23,3 +23,10 @@ CREATE TABLE widget_params
   parameter TEXT NOT NULL,
   value TEXT NOT NULL
 );
+
+CREATE TABLE widget
+(
+  id INTEGER NOT NULL,
+  name TEXT NULL
+);
+

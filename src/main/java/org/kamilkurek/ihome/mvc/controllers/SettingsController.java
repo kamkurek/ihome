@@ -23,7 +23,7 @@ public class SettingsController {
     }
 
     @RequestMapping(method = GET) public String get(Model model) {
-        model.addAttribute("widgets", widgetDao.getWidgets());
+        model.addAttribute("widgets", widgetDao.getAll());
         return "settings";
     }
 
