@@ -24,7 +24,11 @@
                 <td>${widget?counter}</td>
                 <td>${widget.name}</td>
                 <td>
-                    <div id="edit" class="btn btn-primary">Edit</div>
+                    <form method="GET" action="<@spring.url '/widget-settings'/>">
+                        <input type="hidden" name="id" value="${widget.id}">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                    <#--<div id="edit" class="btn btn-primary">Edit</div>-->
                 </td>
             </tr>
         </#list>

@@ -32,7 +32,7 @@ public class WidgetParametersDao {
         return map;
     }
 
-    public void setWidgetParam(String widgetId, String param, String value) {
+    public void setWidgetParam(long widgetId, String param, String value) {
         String sql = "DELETE FROM widget_params " +
                 "WHERE widget_id = ? " +
                 "AND parameter = ?";

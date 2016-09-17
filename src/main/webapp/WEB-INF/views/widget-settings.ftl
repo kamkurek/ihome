@@ -17,13 +17,28 @@
 </nav>
 
 <div class="container-fluid">
-    <form role="form" method="post" action="/ihome/widget-settings">
+    <form role="form" method="post">
+    Sensors:
+    <table class="table table-striped">
+        <thead><tr><th>#</th><th>Id</th><th>Select</th></tr></thead>
+        <tbody>
+        <#list sensors as sensor>
+            <tr>
+                <td>${sensor?counter}</td>
+                <td>${sensor}</td>
+                <td>
+                   <input type="checkbox" name="sensor" value="${sensor}" <#if currentSensor == sensor>checked="true"</#if>>
+                </td>
+            </tr>
+        </#list>
+    </table>
+
         <#list parameters?keys as parameter>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="${parameter}">${parameter}</label>
-                        <input type="text" class="form-control" id="${parameter}" value="${parameters[parameter]}" name="${parameter}">
+                        <input type="text" class="form-control" value="${parameters[parameter]}" name="${parameter}">
                     </div>
                 </div>
             </div>
@@ -31,6 +46,10 @@
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
-
+<script>
+    $('input[type="checkbox"]').on('change', function() {
+        $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+    });
+</script>
 </body>
 </html>
