@@ -30,7 +30,7 @@ public class WidgetSettingsController {
 
     @RequestMapping(method = GET)
     public String get(@RequestParam(required = false) Long id, Model model) {
-        model.addAttribute("sensors", dataDao.getSensorList());
+        model.addAttribute("sensors", dataDao.getSensorIdList());
         Widget widget;
         if(id != null) {
             widget = widgetDao.get(id);

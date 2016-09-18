@@ -19,14 +19,16 @@
     <form role="form" method="post">
     Sensors:
     <table class="table table-striped">
-        <thead><tr><th>#</th><th>Id</th><th>Select</th></tr></thead>
+        <thead><tr><th>#</th><th>Id</th><th>Number of rows</th><th>Latest data</th><th>Select</th></tr></thead>
         <tbody>
-        <#list sensors as sensor>
+        <#list data as dataRow>
             <tr>
-                <td>${sensor?counter}</td>
-                <td>${sensor}</td>
+                <td>${dataRow?counter}</td>
+                <td>${dataRow.id}</td>
+                <td>${dataRow.numberOfRows}</td>
+                <td>${dataRow.latestData}</td>
                 <td>
-                   <input type="checkbox" name="sensor" value="${sensor}" <#if widget.sensor?? && widget.sensor == sensor>checked="true"</#if>>
+                   <input type="checkbox" name="sensor" value="${sensor}" <#if sensor.id?? && sensor.id == dataRow.id>checked="true"</#if>>
                 </td>
             </tr>
         </#list>
@@ -35,15 +37,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input id="name" type="text" class="form-control" name="name" value="${widget.name!""}">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="color">Color</label>
-                    <input id="color" type="text" class="form-control" name="color" value="${widget.color!""}">
+                    <input id="name" type="text" class="form-control" name="name" value="${sensor.name!""}">
                 </div>
             </div>
         </div>

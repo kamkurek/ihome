@@ -1,5 +1,6 @@
 package org.kamilkurek.ihome.mvc.controllers;
 
+import org.kamilkurek.ihome.db.SensorDao;
 import org.kamilkurek.ihome.db.WidgetDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +17,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class SettingsController {
 
     private final WidgetDao widgetDao;
+    private final SensorDao sensorDao;
 
     @Autowired
-    public SettingsController(WidgetDao widgetDao) {
+    public SettingsController(WidgetDao widgetDao, SensorDao sensorDao) {
         this.widgetDao = widgetDao;
+        this.sensorDao = sensorDao;
     }
 
     @RequestMapping(method = GET) public String get(Model model) {
         model.addAttribute("widgets", widgetDao.getAll());
+        model.addAttribute("sensors", sensorDao.getAll());
         return "settings";
     }
 

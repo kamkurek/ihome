@@ -5,15 +5,9 @@ CREATE TABLE data
   value TEXT NOT NULL
 );
 
-CREATE TABLE sensor_name
+CREATE TABLE sensor
 (
-  id TEXT NOT NULL,
-  name TEXT NOT NULL
-);
-
-CREATE TABLE sensors
-(
-  id TEXT NOT NULL,
+  id TEXT PRIMARY KEY NOT NULL,
   name TEXT NOT NULL
 );
 

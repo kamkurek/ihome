@@ -1,4 +1,4 @@
-package org.kamilkurek.ihome.db;
+package org.kamilkurek.ihome.models;
 
 /**
  * Created by kamil on 2016-06-06.

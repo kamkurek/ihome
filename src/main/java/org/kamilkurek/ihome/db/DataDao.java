@@ -1,6 +1,9 @@
 package org.kamilkurek.ihome.db;
 
 
+import org.kamilkurek.ihome.MyBeanPropertyRowMapper;
+import org.kamilkurek.ihome.models.Data;
+import org.kamilkurek.ihome.models.DataRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by kamil on 2016-06-05.
@@ -33,9 +35,18 @@ public class DataDao {
         jdbcTemplateObject.update(sql, sensorId, date, value);
     }
 
-    public Collection<String> getSensorList() {
+    public Collection<String> getSensorIdList() {
         String sql = "SELECT DISTINCT sensor_id FROM data";
         List<String> query = jdbcTemplateObject.query(sql, new SingleColumnRowMapper(String.class));
+        return query;
+    }
+
+    public List<Data> getSensors() {
+        String sql = "SELECT sensor_id as id" +
+                ", COUNT(1) as number_of_rows " +
+                ", MAX(datetime(date)) as latest_data " +
+                "FROM data GROUP by sensor_id";
+        List<Data> query = jdbcTemplateObject.query(sql, new MyBeanPropertyRowMapper(Data.class));
         return query;
     }
 
@@ -56,12 +67,6 @@ public class DataDao {
                      "ORDER BY datetime(date) DESC " +
                      "LIMIT 1";
         return jdbcTemplateObject.queryForObject(sql, new DataRowMapper(), sensorId);
-    }
-
-    public Optional<String> getSensorName(String sensorId) {
-        String sql = "SELECT name FROM sensors WHERE id = ?";
-
-        return jdbcTemplateObject.query(sql, new SingleColumnRowMapper(String.class), sensorId).stream().findFirst();
     }
 
     private static final class DataRowMapper implements RowMapper<DataRow> {

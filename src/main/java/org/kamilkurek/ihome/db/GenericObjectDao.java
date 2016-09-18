@@ -41,4 +41,10 @@ public abstract class GenericObjectDao<T> {
         T t = jdbcTemplateObject.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), id);
         return t;
     }
+
+    public T get(String id) {
+        String sql = "SELECT * FROM "+getModelName()+" WHERE id=?";
+        T t = jdbcTemplateObject.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), id);
+        return t;
+    }
 }
