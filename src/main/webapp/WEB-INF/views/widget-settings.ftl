@@ -27,22 +27,27 @@
                 <td>${sensor?counter}</td>
                 <td>${sensor}</td>
                 <td>
-                   <input type="checkbox" name="sensor" value="${sensor}" <#if currentSensor == sensor>checked="true"</#if>>
+                   <input type="checkbox" name="sensor" value="${sensor}" <#if widget.sensor?? && widget.sensor == sensor>checked="true"</#if>>
                 </td>
             </tr>
         </#list>
     </table>
-
-        <#list parameters?keys as parameter>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="${parameter}">${parameter}</label>
-                        <input type="text" class="form-control" value="${parameters[parameter]}" name="${parameter}">
-                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" name="name" value="${widget.name!""}">
                 </div>
             </div>
-        </#list>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input id="color" type="text" class="form-control" name="color" value="${widget.color!""}">
+                </div>
+            </div>
+        </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>

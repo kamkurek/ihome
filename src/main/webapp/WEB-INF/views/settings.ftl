@@ -17,7 +17,7 @@
     </nav>
     <div class="container-fluid">
         <table class="table table-striped">
-            <thead><tr><th>#</th><th>Name</th><th>Edit</th></tr></thead>
+            <thead><tr><th>#</th><th>Name</th><th>Edit</th><th>Delete</th></tr></thead>
         <tbody>
         <#list widgets as widget>
             <tr>
@@ -28,7 +28,12 @@
                         <input type="hidden" name="id" value="${widget.id}">
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
-                    <#--<div id="edit" class="btn btn-primary">Edit</div>-->
+                </td>
+                <td>
+                    <form method="POST" action="<@spring.url '/widget-delete'/>">
+                        <input type="hidden" name="id" value="${widget.id}">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         </#list>

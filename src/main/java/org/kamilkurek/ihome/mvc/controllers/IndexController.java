@@ -2,9 +2,9 @@ package org.kamilkurek.ihome.mvc.controllers;
 
 import org.kamilkurek.ihome.db.DataDao;
 import org.kamilkurek.ihome.db.DataRow;
-import org.kamilkurek.ihome.db.WidgetParametersDao;
+import org.kamilkurek.ihome.db.WidgetDao;
+import org.kamilkurek.ihome.models.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +25,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class IndexController {
 
     private final DataDao dataDao;
-    private final WidgetParametersDao widgetParametersDao;
+    private final WidgetDao widgetDao;
 
     @Autowired
-    public IndexController(DataDao dataDao, WidgetParametersDao widgetParametersDao) {
+    public IndexController(DataDao dataDao, WidgetDao widgetDao) {
         this.dataDao = dataDao;
-        this.widgetParametersDao = widgetParametersDao;
+        this.widgetDao = widgetDao;
     }
 
     @RequestMapping(method = GET) public String get(Model model, @RequestParam(defaultValue = "24") int hours) {
@@ -46,11 +46,15 @@ public class IndexController {
             sensorNames.put(uuid, dataDao.getSensorName(uuid).orElse(uuid));
         });
 
+        List<Widget> widgets = widgetDao.getAll();
+        Map<Long, Widget> widgetsMap = new HashMap<>(widgets.size());
+        widgets.forEach(widget -> widgetsMap.put(widget.getId(), widget));
+
         model.addAttribute("interval", getInterval(hours));
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("latestDataMap", latestDataMap);
         model.addAttribute("sensorNames", sensorNames);
-        model.addAttribute("widgetParameters", widgetParametersDao.getWidgetParams(1));
+        model.addAttribute("widgets", widgets);
 
         return "index";
     }

@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    CanvasJS.addColorSet('colorSet1',["${widgetParameters['colors']!'#000000'}"]);
-
-    <#list dataMap?keys as uuid>
-    var chart${uuid} = new CanvasJS.Chart("chartContainer${uuid}",{
-        colorSet:  "colorSet1",
+    <#list widgets as widget>
+    <#assign colorSet = "'colorSet"+widget.id+"'">
+    CanvasJS.addColorSet(${colorSet}, ["${widget.color!'#000000'}"]);
+    var chart${widget.id} = new CanvasJS.Chart("chartContainer${widget.id}",{
+        colorSet:  ${colorSet},
         title:{
             fontSize: 18
         },
@@ -30,12 +30,12 @@
         ]
     });
 
-    <#list dataMap[uuid] as row>
-        chart${uuid}.options.data[0].dataPoints.push({x: new Date('${row.getDate()}+02:00'), y: parseFloat(${row.getValue()})});
+    <#list dataMap[widget.sensor] as row>
+        chart${widget.id}.options.data[0].dataPoints.push({x: new Date('${row.getDate()}+02:00'), y: parseFloat(${row.getValue()})});
     </#list>
 
-    <#if dataMap[uuid]?size!=0>
-        chart${uuid}.render();
+    <#if dataMap[widget.sensor]?size!=0>
+        chart${widget.id}.render();
     </#if>
 
     </#list>

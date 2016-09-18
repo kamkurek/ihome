@@ -44,15 +44,15 @@
 </nav>
 
 <div class="container-fluid">
-    <#list latestDataMap?keys as uuid>
+    <#list widgets as widget>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-stats"></span>
-                ${sensorNames[uuid]} temperature: ${latestDataMap[uuid]}<sup>o</sup>C
+                ${widget.name} temperature: ${latestDataMap[widget.sensor]}<sup>o</sup>C
             </div>
             <div class="panel-body">
-                <#if dataMap[uuid]?size!=0>
-                    <div id="chartContainer${uuid}" class="chartContainer"></div>
+                <#if dataMap[widget.sensor]?size!=0>
+                    <div id="chartContainer${widget.id}" class="chartContainer"></div>
                 <#else>
                     <div class="text-center"><h3>No data</h3></div>
                 </#if>

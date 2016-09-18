@@ -7,6 +7,8 @@ public class Widget {
 
     private Long id;
     private String name;
+    private String color;
+    private String sensor;
 
     public Long getId() {
         return id;
@@ -22,5 +24,21 @@ public class Widget {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(String sensor) {
+        this.sensor = sensor;
     }
 }

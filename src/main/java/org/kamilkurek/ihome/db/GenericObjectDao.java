@@ -12,13 +12,17 @@ import java.util.List;
  */
 public abstract class GenericObjectDao<T> {
 
-    private JdbcTemplate jdbcTemplateObject;
+    protected JdbcTemplate jdbcTemplateObject;
     private Class<T> clazz = getGenericClass();
 
     public List<T> getAll() {
         String sql = "SELECT * FROM "+getModelName();
         List<T> all = jdbcTemplateObject.query(sql, new BeanPropertyRowMapper<>(clazz));
         return all;
+    }
+
+    public void delete(long id) {
+        jdbcTemplateObject.update("DELETE FROM "+getModelName()+" WHERE id = ?", id);
     }
 
     protected abstract Class<T> getGenericClass();
@@ -32,4 +36,9 @@ public abstract class GenericObjectDao<T> {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
+    public T get(Long id) {
+        String sql = "SELECT * FROM "+getModelName()+" WHERE id=?";
+        T t = jdbcTemplateObject.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), id);
+        return t;
+    }
 }
