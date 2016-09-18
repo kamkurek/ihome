@@ -23,10 +23,14 @@ public class MyBeanPropertyRowMapper<T> extends BeanPropertyRowMapper<T> {
     protected Object getColumnValue(ResultSet rs, int index, PropertyDescriptor pd) throws SQLException {
         Class<?> requiredType = pd.getPropertyType();
         if(LocalDateTime.class.equals(requiredType)) {
-            String value = rs.getString(index);
-            return LocalDateTime.parse(value, formatter);
+            return parseLocalDateTime(rs, index);
         }
         return super.getColumnValue(rs, index, pd);
+    }
+
+    private Object parseLocalDateTime(ResultSet rs, int index) throws SQLException {
+        String value = rs.getString(index);
+        return LocalDateTime.parse(value, formatter);
     }
 
 }

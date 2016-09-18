@@ -1,6 +1,7 @@
 package org.kamilkurek.ihome.mvc.controllers;
 
 import org.kamilkurek.ihome.db.DataDao;
+import org.kamilkurek.ihome.db.SensorDao;
 import org.kamilkurek.ihome.db.WidgetDao;
 import org.kamilkurek.ihome.models.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/widget-settings")
 public class WidgetSettingsController {
 
-    private final DataDao dataDao;
+    private final SensorDao sensorDao;
     private final WidgetDao widgetDao;
 
     @Autowired
-    public WidgetSettingsController(DataDao dataDao, WidgetDao widgetDao) {
-        this.dataDao = dataDao;
+    public WidgetSettingsController(WidgetDao widgetDao, SensorDao sensorDao) {
         this.widgetDao = widgetDao;
+        this.sensorDao = sensorDao;
     }
 
     @RequestMapping(method = GET)
     public String get(@RequestParam(required = false) Long id, Model model) {
-        model.addAttribute("sensors", dataDao.getSensorIdList());
+        model.addAttribute("sensors", sensorDao.getAll());
         Widget widget;
         if(id != null) {
             widget = widgetDao.get(id);

@@ -19,14 +19,14 @@
     <form role="form" method="post">
     Sensors:
     <table class="table table-striped">
-        <thead><tr><th>#</th><th>Id</th><th>Select</th></tr></thead>
+        <thead><tr><th>#</th><th>Name</th><th>Select</th></tr></thead>
         <tbody>
         <#list sensors as sensor>
             <tr>
                 <td>${sensor?counter}</td>
-                <td>${sensor}</td>
+                <td>${sensor.name}</td>
                 <td>
-                   <input type="checkbox" name="sensor" value="${sensor}" <#if widget.sensor?? && widget.sensor == sensor>checked="true"</#if>>
+                   <input type="checkbox" name="sensor" value="${sensor.id}" <#if widget.sensor?? && widget.sensor == sensor.id>checked="true"</#if>>
                 </td>
             </tr>
         </#list>
