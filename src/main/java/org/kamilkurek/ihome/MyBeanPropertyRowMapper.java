@@ -1,5 +1,6 @@
 package org.kamilkurek.ihome;
 
+import org.kamilkurek.ihome.models.Widget;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.beans.PropertyDescriptor;
@@ -25,7 +26,15 @@ public class MyBeanPropertyRowMapper<T> extends BeanPropertyRowMapper<T> {
         if(LocalDateTime.class.equals(requiredType)) {
             return parseLocalDateTime(rs, index);
         }
+        if(Widget.WidgetType.class.equals(requiredType)) {
+            return parseWidgetType(rs, index);
+        }
         return super.getColumnValue(rs, index, pd);
+    }
+
+    private Object parseWidgetType(ResultSet rs, int index) throws SQLException {
+        String value = rs.getString(index);
+        return Widget.WidgetType.valueOf(value);
     }
 
     private Object parseLocalDateTime(ResultSet rs, int index) throws SQLException {

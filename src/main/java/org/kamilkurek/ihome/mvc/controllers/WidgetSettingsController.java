@@ -1,6 +1,5 @@
 package org.kamilkurek.ihome.mvc.controllers;
 
-import org.kamilkurek.ihome.db.DataDao;
 import org.kamilkurek.ihome.db.SensorDao;
 import org.kamilkurek.ihome.db.WidgetDao;
 import org.kamilkurek.ihome.models.Widget;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static org.kamilkurek.ihome.models.Widget.WidgetType.valueOf;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -44,14 +44,16 @@ public class WidgetSettingsController {
 
     @RequestMapping(method = POST)
     public String post(@RequestParam(required = false) Long id,
+                       @RequestParam String type,
                        @RequestParam String name,
                        @RequestParam String color,
-                       @RequestParam String sensor) {
+                       @RequestParam(required = false) String sensor) {
         Widget widget = new Widget();
         widget.setId(id);
         widget.setName(name);
         widget.setColor(color);
         widget.setSensor(sensor);
+        widget.setType(valueOf(type));
         widgetDao.save(widget);
         return "redirect:/widget-settings?id="+widget.getId();
     }

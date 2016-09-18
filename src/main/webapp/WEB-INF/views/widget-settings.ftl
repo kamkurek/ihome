@@ -26,11 +26,25 @@
                 <td>${sensor?counter}</td>
                 <td>${sensor.name}</td>
                 <td>
-                   <input type="checkbox" name="sensor" value="${sensor.id}" <#if widget.sensor?? && widget.sensor == sensor.id>checked="true"</#if>>
+                   <input type="checkbox" name="sensor" value="${sensor.id}" <#if widget.sensor?? && widget.sensor == sensor.id>checked</#if>>
                 </td>
             </tr>
         </#list>
     </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="type control-label">Type</label>
+                    <div class="selectContainer">
+                        <select class="form-control" name="type">
+                            <option value="">Choose a type</option>
+                            <option value="CHART"  <#if widget.type?? && widget.type == "CHART">selected</#if>>Chart</option>
+                            <option value="BUTTON" <#if widget.type?? && widget.type == "BUTTON">selected</#if>>Button</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">

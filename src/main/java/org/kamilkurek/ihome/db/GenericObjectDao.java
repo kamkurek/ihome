@@ -1,5 +1,6 @@
 package org.kamilkurek.ihome.db;
 
+import org.kamilkurek.ihome.MyBeanPropertyRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +18,7 @@ public abstract class GenericObjectDao<T> {
 
     public List<T> getAll() {
         String sql = "SELECT * FROM "+getModelName();
-        List<T> all = jdbcTemplateObject.query(sql, new BeanPropertyRowMapper<>(clazz));
+        List<T> all = jdbcTemplateObject.query(sql, new MyBeanPropertyRowMapper<>(clazz));
         return all;
     }
 
@@ -38,13 +39,13 @@ public abstract class GenericObjectDao<T> {
 
     public T get(Long id) {
         String sql = "SELECT * FROM "+getModelName()+" WHERE id=?";
-        T t = jdbcTemplateObject.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), id);
+        T t = jdbcTemplateObject.queryForObject(sql, new MyBeanPropertyRowMapper<>(clazz), id);
         return t;
     }
 
     public T get(String id) {
         String sql = "SELECT * FROM "+getModelName()+" WHERE id=?";
-        T t = jdbcTemplateObject.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), id);
+        T t = jdbcTemplateObject.queryForObject(sql, new MyBeanPropertyRowMapper<>(clazz), id);
         return t;
     }
 }

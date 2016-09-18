@@ -16,6 +16,7 @@ CREATE TABLE widget
   id INTEGER PRIMARY KEY NOT NULL,
   name TEXT,
   color TEXT,
-  sensor TEXT
+  sensor TEXT,
+  type TEXT
 );
 

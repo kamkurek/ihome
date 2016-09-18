@@ -35,11 +35,13 @@ public class WidgetDao extends GenericObjectDao<Widget> {
                 " name = ? " +
                 ",color = ? " +
                 ",sensor = ? " +
+                ",type = ?" +
                 "WHERE id = ?";
         jdbcTemplateObject.update(sql,
                  widget.getName()
                 ,widget.getColor()
                 ,widget.getSensor()
+                ,widget.getType()
                 ,widget.getId());
     }
 }

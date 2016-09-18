@@ -9,6 +9,7 @@ public class Widget {
     private String name;
     private String color;
     private String sensor;
+    private WidgetType type;
 
     public Long getId() {
         return id;
@@ -40,5 +41,17 @@ public class Widget {
 
     public void setSensor(String sensor) {
         this.sensor = sensor;
+    }
+
+    public WidgetType getType() {
+        return type;
+    }
+
+    public void setType(WidgetType type) {
+        this.type = type;
+    }
+
+    public enum WidgetType {
+        CHART, BUTTON
     }
 }

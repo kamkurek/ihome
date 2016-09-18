@@ -37,7 +37,9 @@ public class IndexController {
     @RequestMapping(method = GET) public String get(Model model, @RequestParam(defaultValue = "24") int hours) {
         List<Widget> widgets = widgetDao.getAll();
         List<Sensor> sensors = new ArrayList<>();
-        widgets.forEach(widget -> sensors.add(sensorDao.get(widget.getSensor())));
+        widgets.stream()
+                .filter(w -> w.getSensor()!=null)
+                .forEach(widget -> sensors.add(sensorDao.get(widget.getSensor())));
 
         Map<String, String> latestDataMap = new HashMap<>(sensors.size());
         Map<String, List<DataRow>> dataMap = new HashMap<>(sensors.size());

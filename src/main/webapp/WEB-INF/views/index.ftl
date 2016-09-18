@@ -5,6 +5,7 @@
 <head>
     <#include "common-headers.ftl"/>
     <link rel="stylesheet" type="text/css" href="<@spring.url '/resources/css/index.css'/>"/>
+    <link rel="stylesheet" type="text/css" href="<@spring.url '/resources/css/onoffswitch.css'/>"/>
     <script src="<@spring.url '/resources/js/canvasjs.min.js'/>"></script>
 </head>
 
@@ -45,7 +46,8 @@
 
 <div class="container-fluid">
     <#list widgets as widget>
-        <div class="panel panel-default">
+        <#if widget.type == "CHART">
+        <div class="panel panel-default col-md-6">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-stats"></span>
                 ${widget.name} temperature: ${latestDataMap[widget.sensor]}<sup>o</sup>C
@@ -58,6 +60,24 @@
                 </#if>
             </div>
         </div>
+        </#if>
+        <#if widget.type == "BUTTON">
+            <div class="panel panel-default col-md-6">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-off"></span>
+                ${widget.name}
+                </div>
+                <div class="panel-body">
+                    <div class="onoffswitch">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </#if>
     </#list>
 </div>
 <#include "index-js.ftl"/>
