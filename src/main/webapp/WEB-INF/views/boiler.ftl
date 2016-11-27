@@ -5,7 +5,7 @@
 <head>
     <#include "common-headers.ftl"/>
     <link rel="stylesheet" type="text/css" href="<@spring.url '/resources/css/boiler.css'/>"/>
-    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="<@spring.url '/resources/js/canvasjs.min.js'/>"></script>
 </head>
 <body>
 <div class="container-fluid">
