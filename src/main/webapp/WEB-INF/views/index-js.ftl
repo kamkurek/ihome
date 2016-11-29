@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    var timeZoneOffset = new Date().toString().match(/([-\+][0-9]+)\s/)[1];
     <#list dataMap?keys as uuid>
     var chart${uuid} = new CanvasJS.Chart("chartContainer${uuid}",{
         title:{
@@ -27,7 +28,7 @@
     });
 
         <#list dataMap[uuid] as row>
-        chart${uuid}.options.data[0].dataPoints.push({x: new Date('${row.getDate()}+02:00'), y: parseFloat(${row.getValue()})});
+        chart${uuid}.options.data[0].dataPoints.push({x: new Date('${row.getDate()}'+timeZoneOffset), y: parseFloat(${row.getValue()})});
         </#list>
 
         <#if dataMap[uuid]?size!=0>
